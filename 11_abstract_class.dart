@@ -1,9 +1,9 @@
 void main () {
 
-    final windPlan = WindPlant(initialEnergy: 1000);
-
-    print ('wind : ${chargePhone (windPlan)}'); //llamo a la funcion chargePhone y le paso el objeto windPlan que es de tipo WindPlant
-
+    final windPlant = WindPlant(initialEnergy: 1000);
+    final nuclearPlant = NuclearPlant(energyLeft: 1000); //instancia de la clase NuclearPlant
+    print ('wind : ${chargePhone (windPlant)}'); //llamo a la funcion chargePhone y le paso el objeto windPlan que es de tipo WindPlant
+    print ('nuclear : ${chargePhone (nuclearPlant)}');
 }
 
 double chargePhone (EnergyPlan plant){ //cualquier plant que extenda de EnergyPlan, por elejempo 
@@ -26,7 +26,7 @@ enum PlanType {
 abstract class EnergyPlan {
 
     double energyLeft;
-    PlanType type; // nuclear, wind, water
+    final PlanType type; // nuclear, wind, water
 
     // constructor
     EnergyPlan({
@@ -51,3 +51,18 @@ class WindPlant extends EnergyPlan { //voy a heredar las variables, el construct
     energyLeft -= amount;
   } //implementacion del metodo abstracto consumeEnergy de la clase EnergyPlan
 }
+
+
+class NuclearPlant implements EnergyPlan { 
+  @override
+  double energyLeft;
+  
+  final PlanType type= PlanType.nuclear; // nuclear, wind, water
+
+  NuclearPlant ({ required this.energyLeft});
+
+  @override
+  void consumeEnergy(double amount) { //implementacion del metodo abstracto consumeEnergy de la clase EnergyPlan
+    energyLeft -= (amount * 0.5);
+  } //implementacion del metodo abstracto consumeEnergy de la clase EnergyPlan
+}//
